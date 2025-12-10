@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Project π — Chapter 3: The Fractured Lab</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="chapter3.css">
+</head>
+<body>
+  <!-- ambient & shards -->
+  <div id="shards"></div>
+  <div id="fractals"></div>
+  <div class="scanlines"></div>
+
+  <main class="stage">
+    <header class="title-wrap">
+      <h1 class="glitch" data-text="CHAPTER 3 — THE FRACTURED LAB">CHAPTER 3 — THE FRACTURED LAB</h1>
+      <p class="sub">Beakers hum in wrong keys. Glass fractures form patterns that repeat like equations.</p>
+    </header>
+
+    <section id="intro" class="card intro-card">
+      <p class="intro-text">The lab smelled of ozone and old chalk. Glass beads orbited like planets; each crack traced a pattern. If the rift is computing, the lab might be the machine. Study the broken formula and answer carefully.</p>
+      <button id="beginBtn" class="btn primary">Approach the Lab</button>
+    </section>
+
+    <section id="quiz" class="card hidden">
+      <div id="questionArea"></div>
+      <div class="controls">
+        <button id="submitBtn" class="btn primary">Submit Answers</button>
+        <button id="resetBtn" class="btn ghost">Reset</button>
+      </div>
+      <p id="scoreText" class="score"></p>
+    </section>
+
+    <section id="fact" class="card hidden fact-card">
+      <h2>🔓 Lab Insight Unlocked</h2>
+      <p id="factText"></p>
+      <div class="fact-note">This insight links the fracture motifs across chapters. Save it — it matters later.</div>
+      <a id="nextLink" class="btn next" href="../chapter4/chapter4.html" style="display:none">➡ Proceed to Chapter 4</a>
+    </section>
+
+    <footer class="footer">
+      <div class="small">Project: π — Chapter 3</div>
+    </footer>
+  </main>
+
+  <script src="chapter3.js"></script>
+</body>
+</html>
