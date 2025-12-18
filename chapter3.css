@@ -1,124 +1,61 @@
-:root {
-    --bg: #0c0c0c;
-    --panel: #1a1a1a;
-    --text: #c9e4ff;
-    --accent: #ff5e33;
-    --green: #00ff66;
-    --font-title: 'Orbitron', sans-serif;
-    --font-body: 'Roboto Mono', monospace;
+const RAW_SUMS = [2, 5, 12, 11, 12];   // raw vertical & crosswise results
+const CARRIES = [0, 0, 1, 1, 1];       // carry passed forward
+let currentStep = 0;
+
+function checkStep() {
+    const input = Number(document.getElementById(`ans-${currentStep}`).value);
+    const message = document.getElementById("step-message");
+
+    let total = RAW_SUMS[currentStep] + (currentStep > 0 ? CARRIES[currentStep - 1] : 0);
+    let expected = (currentStep === 4) ? total : total % 10;
+
+    if (input === expected) {
+        message.textContent = `Step ${currentStep + 1} correct.`;
+        message.className = "log-message success-log";
+
+        document.querySelectorAll(".step")[currentStep].classList.remove("active");
+        currentStep++;
+
+        if (currentStep < 5) {
+            document.querySelectorAll(".step")[currentStep].classList.add("active");
+            document.getElementById("check-btn").textContent = `LOCK IN STEP ${currentStep + 1}`;
+        } else {
+            revealFinalLock();
+        }
+    } else {
+        message.textContent = "Incorrect. Recheck vertical and crosswise logic.";
+        message.className = "log-message alert-log";
+    }
 }
 
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    margin: 0;
-    padding-top: 40px;
-    display: flex;
-    justify-content: center;
+function revealFinalLock() {
+    document.getElementById("sutra-grid").classList.add("hidden");
+    document.getElementById("final-lock").classList.remove("hidden");
 }
 
-.grid-container {
-    width: 90%;
-    max-width: 850px;
+const LOCK_CODE = "225";
+
+function moveFocus(current, next) {
+    if (current.value.length === 1) {
+        document.getElementById(next)?.focus();
+    }
 }
 
-/* HEADER */
-.chapter-title {
-    font-family: var(--font-title);
-    color: var(--accent);
-    text-shadow: 0 0 10px var(--accent);
-}
-.math-symbol { color: var(--text); }
-.subtitle { color: #aaa; }
+function checkLock() {
+    const code =
+        document.getElementById("code-1").value +
+        document.getElementById("code-2").value +
+        document.getElementById("code-3").value;
 
-/* PANELS */
-.data-panel {
-    background: var(--panel);
-    border: 1px solid #333;
-    padding: 20px;
-    margin-bottom: 30px;
-}
+    const msg = document.getElementById("lock-message");
 
-.log-message { font-size: 0.9rem; }
-.alert-log { color: var(--accent); }
-.success-log { color: var(--green); }
-
-/* MULTIPLIER */
-.multiplier-display {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 20px;
+    if (code === LOCK_CODE) {
+        msg.textContent = "EXIT GRANTED.";
+        msg.className = "log-message success-log";
+        document.getElementById("final-lock").classList.add("hidden");
+        document.getElementById("success-tease").classList.remove("hidden");
+    } else {
+        msg.textContent = "INCORRECT CORE. TRY AGAIN.";
+        msg.className = "log-message alert-log";
+    }
 }
-.m-digit { color: var(--accent); margin: 0 5px; }
-.m-op { color: var(--text); }
-
-/* STEPS */
-#calculation-steps {
-    display: flex;
-    gap: 10px;
-    border-top: 2px dashed #444;
-    border-bottom: 2px dashed #444;
-    padding: 15px 0;
-}
-
-.step {
-    flex: 1;
-    opacity: 0.4;
-    text-align: center;
-}
-
-.step.active {
-    opacity: 1;
-    border-bottom: 2px solid var(--green);
-}
-
-.step input {
-    width: 100%;
-    background: #000;
-    color: var(--green);
-    border: 1px solid #555;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-/* BUTTON */
-.grid-button {
-    margin-top: 25px;
-    padding: 10px 20px;
-    background: transparent;
-    border: 2px solid var(--accent);
-    color: var(--accent);
-    font-family: var(--font-title);
-    cursor: pointer;
-}
-.grid-button:hover {
-    background: var(--accent);
-    color: #000;
-}
-
-/* LOCK */
-.lock-inputs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-.digit-input {
-    width: 50px;
-    height: 60px;
-    font-size: 2rem;
-    text-align: center;
-    background: #222;
-    border: 2px solid #444;
-    color: var(--green);
-}
-
-.hidden { display: none; }
-
-.qr-placeholder {
-    width: 150px;
-    height: 150px;
-    border: 3px solid var(--accent);
-    margin: 20px auto;
-}
-.riddle-hint { color: var(--accent); }
