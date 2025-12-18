@@ -1,49 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Project π — Chapter 3: The Fractured Lab</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="chapter3.css">
-</head>
-<body>
-  <!-- ambient & shards -->
-  <div id="shards"></div>
-  <div id="fractals"></div>
-  <div class="scanlines"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT π | The Maze of the Cross</title>
 
-  <main class="stage">
-    <header class="title-wrap">
-      <h1 class="glitch" data-text="CHAPTER 3 — THE FRACTURED LAB">CHAPTER 3 — THE FRACTURED LAB</h1>
-      <p class="sub">Beakers hum in wrong keys. Glass fractures form patterns that repeat like equations.</p>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="chapter3.css">
+</head>
+
+<body>
+
+<div class="grid-container">
+
+    <!-- HEADER -->
+    <header class="grid-header">
+        <h1 class="chapter-title">
+            PROJECT <span class="math-symbol">π</span> : CHAPTER 3
+        </h1>
+        <p class="subtitle">Ūrdhva–Tiryak • The Maze of the Cross</p>
     </header>
 
-    <section id="intro" class="card intro-card">
-      <p class="intro-text">The lab smelled of ozone and old chalk. Glass beads orbited like planets; each crack traced a pattern. If the rift is computing, the lab might be the machine. Study the broken formula and answer carefully.</p>
-      <button id="beginBtn" class="btn primary">Approach the Lab</button>
+    <!-- CONTEXT -->
+    <section class="data-panel">
+        <p class="log-message alert-log">
+            URDHVA–TIRYAK PROTOCOL INITIATED
+        </p>
+        <p class="log-detail">
+            Solve <strong>412 × 321</strong> using vertical and crosswise multiplication.
+            Each step produces one digit of the final answer using carry logic.
+        </p>
+        <p class="log-detail">
+            Final objective: unlock the maze using the <strong>middle three digits</strong>.
+        </p>
     </section>
 
-    <section id="quiz" class="card hidden">
-      <div id="questionArea"></div>
-      <div class="controls">
-        <button id="submitBtn" class="btn primary">Submit Answers</button>
-        <button id="resetBtn" class="btn ghost">Reset</button>
-      </div>
-      <p id="scoreText" class="score"></p>
+    <!-- GRID SOLVER -->
+    <section id="sutra-grid" class="data-panel grid-solver">
+
+        <h2 class="trial-title">TRIAL: 412 × 321</h2>
+
+        <div class="multiplier-display">
+            <span class="m-digit">4</span>
+            <span class="m-digit">1</span>
+            <span class="m-digit">2</span>
+            <span class="m-op">×</span>
+            <span class="m-digit">3</span>
+            <span class="m-digit">2</span>
+            <span class="m-digit">1</span>
+        </div>
+
+        <div id="calculation-steps">
+
+            <div class="step active" data-step="0">
+                <p class="step-label">Step 1 • Vertical</p>
+                <input type="number" id="ans-0" placeholder="2">
+                <span class="carry-label">Carry: 0</span>
+            </div>
+
+            <div class="step" data-step="1">
+                <p class="step-label">Step 2 • Crosswise</p>
+                <input type="number" id="ans-1" placeholder="5">
+                <span class="carry-label">Carry: 0</span>
+            </div>
+
+            <div class="step" data-step="2">
+                <p class="step-label">Step 3 • Triple Cross</p>
+                <input type="number" id="ans-2" placeholder="2">
+                <span class="carry-label">Carry: 1</span>
+            </div>
+
+            <div class="step" data-step="3">
+                <p class="step-label">Step 4 • Crosswise</p>
+                <input type="number" id="ans-3" placeholder="2">
+                <span class="carry-label">Carry: 1</span>
+            </div>
+
+            <div class="step" data-step="4">
+                <p class="step-label">Step 5 • Vertical</p>
+                <input type="number" id="ans-4" placeholder="13">
+                <span class="carry-label">Carry: 0</span>
+            </div>
+
+        </div>
+
+        <button id="check-btn" class="grid-button" onclick="checkStep()">
+            LOCK IN STEP 1
+        </button>
+
+        <p id="step-message" class="log-message">
+            Enter the correct digit for Step 1.
+        </p>
+
     </section>
 
-    <section id="fact" class="card hidden fact-card">
-      <h2>🔓 Lab Insight Unlocked</h2>
-      <p id="factText"></p>
-      <div class="fact-note">This insight links the fracture motifs across chapters. Save it — it matters later.</div>
-      <a id="nextLink" class="btn next" href="../chapter4/chapter4.html" style="display:none">➡ Proceed to Chapter 4</a>
+    <!-- FINAL LOCK -->
+    <section id="final-lock" class="data-panel hidden">
+        <h2 class="trial-title">MAZE EXIT CODE</h2>
+        <p class="log-message alert-log">
+            Extract the middle three digits of <strong>132252</strong>.
+        </p>
+
+        <div class="lock-inputs">
+            <input class="digit-input" maxlength="1" id="code-1" onkeyup="moveFocus(this,'code-2')">
+            <input class="digit-input" maxlength="1" id="code-2" onkeyup="moveFocus(this,'code-3')">
+            <input class="digit-input" maxlength="1" id="code-3" onkeyup="checkLock()">
+        </div>
+
+        <p id="lock-message" class="log-message">
+            Enter the 3-digit core.
+        </p>
     </section>
 
-    <footer class="footer">
-      <div class="small">Project: π — Chapter 3</div>
-    </footer>
-  </main>
+    <!-- SUCCESS -->
+    <section id="success-tease" class="data-panel hidden">
+        <p class="log-message success-log">
+            MAZE CLEARED. PROCEED FORWARD.
+        </p>
+        <div class="qr-placeholder">QR</div>
+        <p class="riddle-hint">
+            NEXT: The World Turned Upside Down (Division)
+        </p>
+    </section>
 
-  <script src="chapter3.js"></script>
+</div>
+
+<script src="chapter3.js"></script>
 </body>
 </html>
